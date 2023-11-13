@@ -11,13 +11,13 @@ import lombok.Setter;
 public class ListDto {
     private long list_id;
     private long user_id;
-    private String list_name;
-    private int list_size;
+    private String name;
+    private int size;
 
-    public ListDto(List list){
-        this.list_id=list.getList_id();
-        this.user_id=list.getUser().getUser_id();
-        this.list_name=list.getList_name();
-        this.list_size=list.getList_size();
+    public ListDto(List list) {
+        this.list_id = list.getId();
+        this.user_id = list.getUser().getId();
+        this.name = list.getName();
+        this.size = list.getSize();
     }
 }

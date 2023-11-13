@@ -3,38 +3,38 @@ package com.example.musiclist.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Getter
-@Setter
-@Table(name="User")
-@ToString
+@Table(name = "User")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class User {
     @Id
-    @Column(name="user_id",length = 50)
-    private Long user_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", length = 50)
+    private Long id;
 
-    @Column(name="user_pw",nullable = false,length = 50)
-    private String user_pw;
+    @Column(name = "pw", nullable = false, length = 50)
+    private String pw;
 
-    @Column(name="user_name",nullable = false,length = 50)
-    private String user_name;
+    @Column(name = "name", nullable = false, length = 50)
+    private String name;
 
-    @Column(name="user_phone",nullable = false,length = 50)
-    private String user_phone;
+    @Column(name = "phone", nullable = false, length = 50)
+    private String phone;
 
-    @Column(name="user_email",length = 50)
-    private String user_email;
-
-    @CreationTimestamp
-    private Timestamp created_at;
+    @Column(name = "email", unique = true, length = 50)
+    private String email;
 
     @CreationTimestamp
-    private Timestamp updated_at;
+    private LocalDateTime created_at;
+
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 }

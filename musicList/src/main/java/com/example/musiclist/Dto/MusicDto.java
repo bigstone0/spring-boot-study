@@ -10,12 +10,12 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class MusicDto {
     private long music_id;
-    private String music_name;
+    private String name;
     private long list_id;
 
-    public MusicDto(Music music){
-        this.music_id=music.getMusic_id();
-        this.music_name=music.getMusic_name();
-        this.list_id=music.getList().getList_id();
+    public MusicDto(Music music) {
+        this.music_id = music.getId();
+        this.name = music.getName();
+        this.list_id = music.getList().getId();
     }
 }
