@@ -1,19 +1,18 @@
 package com.example.musiclist.Dto;
 
 import com.example.musiclist.domain.User;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserSignInDto {
+    @NotBlank
     private String email;
+    @NotBlank
     private String pw;
-
-    public UserSignInDto(User user) {
-        this.pw = user.getPw();
-        this.email = user.getEmail();
-    }
 }

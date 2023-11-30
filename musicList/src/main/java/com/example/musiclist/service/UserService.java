@@ -5,6 +5,7 @@ import com.example.musiclist.domain.User;
 import com.example.musiclist.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,12 +23,14 @@ public class UserService {
 
     private final EntityManager em;
 
-    public void register(UserDto userDto) {
-        User user = new User();
-        user.setPw(userDto.getPw());
-        user.setName(userDto.getName());
-        user.setPhone(userDto.getPhone());
-        user.setEmail(userDto.getEmail());
+    public void register(@Valid UserDto userDto) {
+        User user = User.builder()
+                .id(userDto.getUser_id())
+                .pw(userDto.getPw())
+                .email(userDto.getEmail())
+                .phone(userDto.getPhone())
+                .name(userDto.getName())
+                .build();
         userRepository.save(user);
     }
 
@@ -38,20 +41,21 @@ public class UserService {
 
     @Transactional
     public void update(UserDto userDto) {
-        User user = em.find(User.class, userDto.getUser_id());
+        User user = userRepository.findByEmail(userDto.getEmail());
         user.setPw(userDto.getPw());
         user.setPhone(userDto.getPhone());
         user.setName(userDto.getName());
     }
-    public Page<User> userList(Pageable pageable){
+
+    public Page<User> userList(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
     @Transactional
-    public User login(String loginEmail, String password){
-        User users=userRepository.findByEmail(loginEmail);
-        if(users.getPw().equals(password)){
-            return users;
+    public User login(String loginEmail, String password) {
+        User user = userRepository.findByEmail(loginEmail);
+        if (user.getPw().equals(password)) {
+            return user;
         }
         return null;
     }

@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,12 +55,15 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public String login(@RequestBody UserSignInDto sign, HttpServletRequest request) {
-        User user = userService.login(sign.getEmail(), sign.getPw());
+    public ResponseEntity<UserSignInDto> login(HttpServletRequest request, @RequestBody @Valid UserSignInDto sign) {
+        ResponseEntity<UserSignInDto> responseEntity= null;
         HttpSession session = request.getSession();
-        session.setAttribute("loginUser", user);
 
-        return "login";
+        User user = userService.login(sign.getEmail(), sign.getPw());
+        session.setAttribute("loginUser", user);
+        responseEntity = new ResponseEntity<UserSignInDto>(sign,HttpStatus.OK);
+
+        return responseEntity;
     }
 
 }

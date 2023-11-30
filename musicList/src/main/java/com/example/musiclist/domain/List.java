@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "List")
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class List {

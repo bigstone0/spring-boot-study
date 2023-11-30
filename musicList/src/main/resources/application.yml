@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/musicPlayList?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/musicList?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
-    password: 12345678
+    password: root
 
   jpa:
     hibernate:
